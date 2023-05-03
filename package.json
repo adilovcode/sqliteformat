@@ -1,11 +1,11 @@
 {
   "name": "sqliteformat",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "start": "nodemon -r dotenv/config cmd/index.ts",
+    "start": "nodemon -r cmd/index.ts",
     "test": "jest --config jest.config.json",
     "test:watch": "jest --config jest.config.json --watch --collectCoverage 0",
     "test:ci": "jest --config jest.config.json --ci --reporters='default' --reporters='./github-actions-reporter'",

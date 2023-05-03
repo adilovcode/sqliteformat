@@ -1,34 +1,18 @@
-# sample
-sample
-
-# npm
-node_modules
-
-#ide configuration
+.run
 .idea
-.vscode
-
-# istanbul
+.github
 coverage
-*.lcov
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# yarn
-yarn-debug.log*
-yarn-error.log*
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
-# misc
-output.txt
-.eslintcache
-.prettiercache
+src
+tests
+docs
+node_modules
+.editorconfig
+.gitignore
+.eslintignore
+.eslintrc.json
+.prettierrc.js
+github-actions-reporter.js
+jest.config.json
+readme.md
+setupTests.ts
+yarn.lock

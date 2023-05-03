@@ -1,28 +1,39 @@
-import getConfig from './getConfig';
+import {replaceSubstringByIndex} from './helpers';
 
-let loaned = 0;
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+export const format = (sql: string, parameters: any[]) => {
+  parameters = [...parameters];
 
-/**
- * This function will determine whether you enjoy your life and if so, return 'yolo' and if not, return 'no yolo'
- *
- * @param lifeEnjoyment - How much you enjoy life
- */
-export const yolo = (lifeEnjoyment: number) => {
-  return lifeEnjoyment >= 100 ? 'yolo' : 'no yolo';
-};
+  const placeholders = [];
 
-/**
- * With this function, you can get a loan of any amount. It has a very sophisticated algorithm that will determine whether you are eligible for a loan or not.
- *
- *
- * @param amount - The amount of money you want to get
- */
-export const getLoan = (amount: number) => {
-  loaned += amount;
+  let currentIndex = 0;
+  let inQuotes = false;
 
-  if (loaned > getConfig().maxLoan) {
-    throw new Error('You are too poor to get a loan');
+  for (let i = 0; i < sql.length; i++) {
+    if (sql[i] === "'") {
+      inQuotes = !inQuotes;
+    } else if (!inQuotes && sql[i] === '?') {
+      placeholders.push(currentIndex);
+    }
+
+    currentIndex++;
   }
 
-  return amount;
+  if (parameters.length !== placeholders.length)
+    throw new Error('Invalid number of parameters');
+
+  for (const parameter of parameters.reverse()) {
+    const sqlReplacement =
+      typeof parameter === 'string'
+        ? `'${parameter.replace(/'/g, "''")}'`
+        : parameter;
+
+    const startIndex = placeholders.pop();
+
+    if (!startIndex) throw new Error('Invalid start index');
+
+    sql = replaceSubstringByIndex(sql, startIndex, sqlReplacement);
+  }
+
+  return sql;
 };

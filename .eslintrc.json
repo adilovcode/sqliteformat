@@ -1,7 +1,15 @@
 {
   "extends": "./node_modules/gts/",
   "rules": {
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "node/no-extraneous-import": [
+      "error",
+      {
+        "allowModules": [
+          "@webbeetechnologies/column-crafter",
+          "@webbeetechnologies/db-wand"
+        ]
+      }
+    ],
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
